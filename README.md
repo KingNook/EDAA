@@ -22,6 +22,12 @@ I also think it would be good to normalise all profiles by their maximum (initia
 
 I will then also have to pick out the timeframes for which we see decay -- I am planning on doing this manually, although if I find a better way, I will almost certainly switch to that.
 
+---
+
+### Calibration
+
+I also need to remember to run the calibration script before running processing; everything should be roughly proportional (especially decay times actually), but it is probably best to align it nonetheless.
+
 ## Processing
 
 Would want to fit exponential decay curves. Write out hypothesis that decay rate is proportional to difference between current concentration and background (in absence of external sources) and thus would be expected to be an exponential decay curve. Then possibly fit via MSE, minimise and display. Possibly also include something to do with uncertainty, eg fit a gaussian to the length scale to try to cover all values, can potentially also try GMM or similar on length scales to get an idea of groups of time scales of decay.
@@ -31,6 +37,13 @@ Could also normalise by total decrease to steady state (since steady state carbo
 **smoothing?**
 
 we could try smoothing first for the sake of it? i suspect that it is not a good idea to process the data too much before fitting curves. still, it might be worth trying it out to see how much (if any) of an effect it has on the fitted curves. As for *how* I would go about smoothing, I would like to try the gaussian stuff I saw in Daniel Chen's CMP presentation, so potentially try to apply that using `.rolling()`? It's just that I am distinctly aware that performance might be a bit of an issue.
+
+### Curve Fitting
+So we wish to fit an exponential curve to our data - I think the best way to go about this would be to perform linear regression on e^ data to find the coefficient; we are effectively looking for coefficients A and B that best fit
+
+$$
+CO_2 = Ae^{time/\tau}
+$$
 
 ## Analysis
 
